@@ -1,0 +1,16 @@
+{
+	"glossary": {
+		"string": "I am a string",
+		"number": 1234,
+		"int": 8956,
+		"float": 123.4,
+		"boolean": true,
+		"stringArray": ["one", "two"],
+		"intArray": [888, 444],
+		"obj" : {
+			"para": "A meta-markup language, used to create markup languages such as DocBook.",
+			"GlossSeeAlso": ["GML", "XML"]
+		}
+
+	}
+}
