@@ -17,6 +17,8 @@ neko jsonhxdef '/Volumes/path/to/twitter.json'
 ```
 And next to the `.json` there will be the converted `ASTxxx.hx` file.
 
+See two json file converted in the [example folder](bin/example) 
+
 ## JSON Values
 
 There are some rules you have to keep in mind.  
