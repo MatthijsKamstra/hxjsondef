@@ -4,8 +4,17 @@ import sys.io.File;
 import sys.io.FileOutput;
 import sys.FileSystem; 
 
+using StringTools;
+
 class Main {
 
+	private var NAME : String = "HxJsonDef";
+	private var VERSION : String = "0.0.2";
+	/**
+	 * 0.0.2 - fixed Array with objects
+	 * 0.0.1 - initial release
+	 */
+	
 	private var str = '';
 	private var isLazy : Bool = true;
 	private var isComment : Bool = false;
@@ -15,6 +24,8 @@ class Main {
 
 	private var path:String;
 	private var fileName:String;
+
+	private var typeDefMap : Map<String, Array<String>> = new Map<String, Array<String>>();
 
 	function new(?args : Array<String>) : Void
 	{
@@ -34,11 +45,12 @@ class Main {
 		// [mck] validate if file exists
 
 
-		Sys.println('jsonhxdef :: start');
 
 		var tmpArr = filePath.split('/');
-		fileName = tmpArr[tmpArr.length-1].split(".")[0];
+		fileName = validFileName(tmpArr[tmpArr.length-1].split(".")[0]);
 		path = filePath.substring(0,filePath.lastIndexOf("/")+1);
+
+		Sys.println('$NAME :: start converting "${fileName}.json"');
 
 		// trace( "path: " + path );
 		// trace( "fileName: " + fileName );
@@ -48,16 +60,10 @@ class Main {
 		// trace( "Sys.getCwd(): " + Sys.getCwd() );
 		// var path = Sys.executablePath();
 		// var fin = sys.io.File.getContent(path + fname);
-		if(isFileSet){
-			init(filePath);
-		} else {
-			init("/Volumes/Data HD/Users/matthijs/Documents/workingdir/haxe/hxjsondef/bin/example/test.json");
-			init("/Volumes/Data HD/Users/matthijs/Documents/workingdir/haxe/hxjsondef/bin/example/test0.json");
-			init("/Volumes/Data HD/Users/matthijs/Documents/workingdir/haxe/hxjsondef/bin/_test/slack.json");
-			init("/Volumes/Data HD/Users/matthijs/Documents/workingdir/haxe/hxjsondef/bin/_test/twitter.json");
-		}
 
-		Sys.println('jsonhxdef :: end');
+		init(filePath);
+
+		Sys.println('$NAME :: done!\n');
 
 	}
 
@@ -65,7 +71,6 @@ class Main {
 
 	private function init(file:String):Void
 	{
-		str = '';
 		var content;
 		var json;
 		try{
@@ -76,67 +81,88 @@ class Main {
 			return ;
 		}
 
-		str += headerInfo();
+		// [mck] start everything from here
+		convert2Typedef('${capString(fileName)}Obj', content);
 
-		str += 'typedef ${capString(fileName)}Obj =\n{\n';
-		
-		readJson(json);
-		
-		str += '};\n';
-		
+		// [mck] create the content for the .hx file
+		for (key in typeDefMap.keys()) 
+		{
+			var arr = typeDefMap.get(key);
+			str += '\ntypedef ${key} =\n{\n';
+			for (i in 0 ... arr.length) {
+				str += '${arr[i]}\n';
+			}
+
+			str += '};\n';
+		}
+
+		str = headerInfo() + str;
+
+		Sys.println('$NAME :: write data to "AST${fileName}.hx" ...');
+
 		write(fileName, str);
 	}
 
-
-	function readJson(pjson:Dynamic, tab:String = '\t')
+	function convert2Typedef(typeName:String, pjson:String)
 	{
-		// [mck] it's an array
+		typeDefMap.set(typeName , []);
+		
+		readJson(typeName, haxe.Json.parse(pjson));
+	}
+
+
+	function readJson(typeName:String, pjson:Dynamic, tab:String = '\t')
+	{
+		// [mck] it's an array?
 		if(pjson.length != null)
 		{
-			readJson(pjson[0]);
+			readJson(typeName,pjson[0],tab);
 			return;
 		}
 
-
-		for (i in Reflect.fields(pjson))
+		for (varName in Reflect.fields(pjson))
 		{
+			var store = '';
 			var c = '';
-			if(isComment) c = ' // ${i}:${Reflect.field(pjson,i)}';
+			if(isComment) c = ' // ${varName}:${Reflect.field(pjson,varName)}';
 
-			switch (Type.typeof(Reflect.field(pjson,i)))
+			switch (Type.typeof(Reflect.field(pjson,varName)))
 			{
 
 				case TObject: 
 					// deeper into the rabit hole
-					str += '${tab}var ${i} :\n${tab}{\n';
-					readJson(Reflect.field(pjson,i), (tab + '\t'));
-					str += '${tab}};\n';
-		
+					store = '${tab}var ${varName} : ${capString(varName)};${c}';
+					convert2Typedef(capString(varName), haxe.Json.stringify(Reflect.field(pjson,varName)));
+
 				case TClass(String):
-					str += '${tab}var ${i} : String;${c}\n';
+					store = '${tab}var ${varName} : String;${c}';
 
 				case TClass(Array):
 					// [mck] is it an Array<String/Int/Bool> or is it an Array<typedef>?
-					str += whatForSortArray(i,Reflect.field(pjson,i),tab);
+					store = whatForSortArray(varName,Reflect.field(pjson,varName),tab);
 
 				case TInt:
-					str += '${tab}var ${i} : Int;${c}\n';
+					store = '${tab}var ${varName} : Int;${c}';
 
 				case TFloat:
-					str += '${tab}var ${i} : Float;${c}\n';
+					store = '${tab}var ${varName} : Float;${c}';
 
 				case TBool:
-					str += '${tab}var ${i} : Bool;${c}\n';
+					store = '${tab}var ${varName} : Bool;${c}';
 
 				case TNull:
-					str += '${tab}var ${i} : Dynamic; // ${i}:${Reflect.field(pjson,i)} // [mck] provide json without `null` values\n';
+					store = '${tab}var ${varName} : Dynamic; // ${varName}:${Reflect.field(pjson,varName)} // [mck] provide json without `null` values';
 
 					// trace(Type.getClassName(Type.getClass(Reflect.field(pjson,i))));
 				default : 
 					// trace(">>>>>> " + Type.typeof(pjson));
 					// trace(">>>>>> " + (Reflect.field(pjson,i)));
-					trace("[FIXME] type: " + Type.typeof(Reflect.field(pjson,i)) + ' / ${i}: ' + Reflect.field(pjson,i));
+					trace("[FIXME] type: " + Type.typeof(Reflect.field(pjson,varName)) + ' / ${varName}: ' + Reflect.field(pjson,varName));
 			}
+
+			var arr = typeDefMap.get('${typeName}');
+			arr.push(store);
+			typeDefMap.set('${typeName}' , arr);
 
 			// trace(i + ":" + Reflect.field(pjson,i));
 		}
@@ -145,7 +171,7 @@ class Main {
 	}
 
 
-	function whatForSortArray(i, value:Array<Dynamic>, tab:String = '\t'):String
+	function whatForSortArray(varName:String, value:Array<Dynamic>, tab:String = '\t'):String
 	{
 		var xc = '';
 		var type : String = 'Dynamic';
@@ -160,7 +186,7 @@ class Main {
 				if(isComment){
 					xc = ' // [FIXME] (array) not sure why you would nest this deep';
 				} else {
-					xc = ' // ${i}:${value[0]} // [FIXME] (array) not sure why you would nest this deep';
+					xc = ' // ${varName}:${value[0]} // [FIXME] (array) not sure why you would nest this deep';
 				}
 
 			case TInt:
@@ -177,16 +203,12 @@ class Main {
 				if(isComment){
 					xc = ' // [mck] provide json without `null` values';
 				} else {
-					xc = ' // ${i}:${value[0]} // [mck] provide json without `null` values';
+					xc = ' // ${varName}:${value[0]} // [mck] provide json without `null` values';
 				}
 			
 			case TObject:
-				type = 'Dynamic';
-				if(isComment){
-					xc = ' // [FIXME] do something clever with objects';
-				} else {
-					xc = ' // ${i}:${value[0]} // [FIXME] do something clever with objects';
-				}
+				type = '${capString(varName)}';
+				convert2Typedef(capString(varName), haxe.Json.stringify(value[0]));
 
 			default : 
 				trace('[FIXME] : ' + Type.typeof(value[0]));
@@ -194,9 +216,9 @@ class Main {
 		}
 
 		var c = '';
-		if(isComment) c = ' // ${i}:${value[0]}';
+		if(isComment) c = ' // ${varName}:${value[0]}';
 
-		var _str = '${tab}var ${i} : Array<$type>;${c}${xc}\n';
+		var _str = '${tab}var ${varName} : Array<$type>;${c}${xc}';
 		return _str;
 	}
 
@@ -204,10 +226,10 @@ class Main {
 
 	private function showHelp () : Void {
 		Sys.println('
-jsonhxdef
+${NAME} (version $VERSION)
 
 how to use: 
-neko jsonhxdef \'path/to/folder\'
+neko ${NAME.toLowerCase()} \'path/to/folder/foobar.json\'
 
 	-help : show this help
 ');
@@ -215,13 +237,19 @@ neko jsonhxdef \'path/to/folder\'
 
 	private function headerInfo():String
 	{
+		var temp = '';
+		for (key in typeDefMap.keys()) 
+		{
+			temp += '\n * \t\t${key}';
+		}
+
 		var str = '';
 		str += 'package;';
 		if(!isComment){
 			str += 
 			'\n\n'+
 			'/**'+
-			'\n * Generated with json2hxdef on ' + Date.now() + 
+			'\n * Generated with ${NAME} (version ${VERSION}) on ' + Date.now() + 
 			'\n * from : ${filePath}' + 
 			'\n * '+
 			'\n * AST = Abstract Syntax Tree'+
@@ -230,10 +258,13 @@ neko jsonhxdef \'path/to/folder\'
 			'\n * If you profide a .json there should be no null values'+
 			'\n * comments in this document show you the values that need to be changed!'+
 			'\n * '+
-			'\n * Some (backend)-developers choose to hide empty values, you can add them:'+
+			'\n * Some (backend)-developers choose to hide empty/null values, you can add them:'+
 			'\n * \t\t@optional var _id : Int;'+
+			'\n * '+
+			'\n * Name(s) that you possibly need to change:'+
+			'$temp'+
 			'\n */'+
-			'\n\n';
+			'\n';
 		}
 
 		return str;
@@ -243,9 +274,13 @@ neko jsonhxdef \'path/to/folder\'
 
 	private function isValidJson(filePath:String):Bool
 	{
-	    return (filePath.indexOf(".json") != -1);
+		return (filePath.indexOf(".json") != -1);
 	}
 
+	private function validFileName(name:String):String
+	{
+		return name.replace("-", "");
+	}
 
 	private function capString(str:String):String
 	{
