@@ -1,8 +1,8 @@
 package;
 
 /**
- * Generated with HxJsonDef (version 0.0.2) on 2016-03-30 13:46:28
- * from : /Volumes/Data HD/Users/matthijs/Documents/workingdir/haxe/hxjsondef/bin/example/test0.json
+ * Generated with HxJsonDef (version 0.0.3) on 2016-09-20 22:37:03
+ * from : test0
  * 
  * AST = Abstract Syntax Tree
  * 
@@ -15,19 +15,14 @@ package;
  * 
  * Name(s) that you possibly need to change:
  * 		Obj
- * 		Test0Obj
  * 		Glossary
+ * 		Test0ObjObj
  */
 
 typedef Obj =
 {
 	var para : String;
 	var GlossSeeAlso : Array<String>;
-};
-
-typedef Test0Obj =
-{
-	var glossary : Glossary;
 };
 
 typedef Glossary =
@@ -40,4 +35,9 @@ typedef Glossary =
 	var string : String;
 	var number : Int;
 	var stringArray : Array<String>;
+};
+
+typedef Test0ObjObj =
+{
+	var glossary : Glossary;
 };

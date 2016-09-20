@@ -1,3 +1,15 @@
+-cp src
+-main MainJS
+-js bin/www/hxjsondef.js
+-debug
+-dce full
+-lib jQueryExtern
+
+
+
+--next
+
+
 #integrate files to classpath
 -cp src
 

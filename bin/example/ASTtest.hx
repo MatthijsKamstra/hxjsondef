@@ -1,8 +1,8 @@
 package;
 
 /**
- * Generated with HxJsonDef (version 0.0.2) on 2016-03-30 13:46:28
- * from : /Volumes/Data HD/Users/matthijs/Documents/workingdir/haxe/hxjsondef/bin/example/test.json
+ * Generated with HxJsonDef (version 0.0.3) on 2016-09-20 22:37:03
+ * from : test
  * 
  * AST = Abstract Syntax Tree
  * 
@@ -17,9 +17,9 @@ package;
  * 		GlossDiv
  * 		GlossDef
  * 		GlossList
- * 		TestObj
  * 		Glossary
  * 		GlossEntry
+ * 		TestObjObj
  */
 
 typedef GlossDiv =
@@ -39,11 +39,6 @@ typedef GlossList =
 	var GlossEntry : GlossEntry;
 };
 
-typedef TestObj =
-{
-	var glossary : Glossary;
-};
-
 typedef Glossary =
 {
 	var GlossDiv : GlossDiv;
@@ -59,4 +54,9 @@ typedef GlossEntry =
 	var Acronym : String;
 	var GlossTerm : String;
 	var Abbrev : String;
+};
+
+typedef TestObjObj =
+{
+	var glossary : Glossary;
 };
