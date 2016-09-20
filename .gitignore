@@ -1,3 +1,7 @@
 _assets
 test.hxml
 bin/_test
+_temp/hxjsondef.js
+_temp/hxjsondef.js.map
+_temp/index.html
+_temp
