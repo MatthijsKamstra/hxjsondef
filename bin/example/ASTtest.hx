@@ -1,7 +1,7 @@
 package;
 
 /**
- * Generated with HxJsonDef (version 0.0.3) on 2016-09-20 22:49:02
+ * Generated with HxJsonDef (version 0.0.6) on 2016-11-10 16:05:53
  * from : test
  * 
  * AST = Abstract Syntax Tree
@@ -11,7 +11,7 @@ package;
  * comments in this document show you the values that need to be changed!
  * 
  * Some (backend)-developers choose to hide empty/null values, you can add them:
- * 		@optional var _id : Int;
+ * 		@:optional var _id : Int;
  * 
  * Name(s) that you possibly need to change:
  * 		GlossDiv

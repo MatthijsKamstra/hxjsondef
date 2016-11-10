@@ -5,9 +5,12 @@ using StringTools;
 class Hxjsondef {
 
 	public static var NAME : String = "HxJsonDef";
-	public static var VERSION : String = "0.0.3";
+	public static var VERSION : String = "0.0.6";
 	/**
-	 * 0.0.3 - external class to also work with js
+	 * 0.0.6 - @:optional fixed @optional
+	 * 0.0.5 - fixed bug with `\n` in String
+	 * 0.0.4 - loop through all arrays, chances that it will add optionals // doesn't work
+	 * 0.0.3 - external class so it works with js
 	 * 0.0.2 - fixed Array with objects
 	 * 0.0.1 - initial release
 	 */
@@ -44,6 +47,8 @@ class Hxjsondef {
 		str = '';
 		typeDefMap = new Map<String, Array<String>>();
 
+		content = content.replace('\n','');
+
 		// [mck] start everything from here
 		convert2Typedef('${capString(name)}Obj', content);
 
@@ -77,7 +82,10 @@ class Hxjsondef {
 		// [mck] it's an array?
 		if(pjson.length != null)
 		{
-			readJson(typeName,pjson[0],tab);
+			for (i in 0 ... pjson.length) {
+				readJson(typeName,pjson[i],tab);
+			}
+			// readJson(typeName,pjson[0],tab);
 			return;
 		}
 
@@ -136,6 +144,10 @@ class Hxjsondef {
 	{
 		var xc = '';
 		var type : String = 'Dynamic';
+
+		// for (i in 0 ... value.length) {
+
+
 		switch (Type.typeof(value[0]))
 		{
 			case TClass(String):
@@ -209,7 +221,7 @@ class Hxjsondef {
 			'\n * comments in this document show you the values that need to be changed!'+
 			'\n * '+
 			'\n * Some (backend)-developers choose to hide empty/null values, you can add them:'+
-			'\n * \t\t@optional var _id : Int;'+
+			'\n * \t\t@:optional var _id : Int;'+
 			'\n * '+
 			'\n * Name(s) that you possibly need to change:'+
 			'$temp'+
