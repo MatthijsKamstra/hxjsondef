@@ -1,13 +1,13 @@
 package;
 
 /**
- * Generated with HxJsonDef (version 0.0.7) on 2017-04-05 22:48:40
+ * Generated with HxJsonDef (version 0.0.7) on 2017-04-05 22:50:47
  * from : test
  * 
  * AST = Abstract Syntax Tree
  * 
  * Note:
- * If you profide a .json there should be no null values
+ * If you provide a .json there should be no null values
  * comments in this document show you the values that need to be changed!
  * 
  * Some (backend)-developers choose to hide empty/null values, you can add them:

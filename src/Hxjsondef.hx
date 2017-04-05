@@ -218,7 +218,7 @@ class Hxjsondef {
 			'\n * AST = Abstract Syntax Tree'+
 			'\n * '+
 			'\n * Note:'+
-			'\n * If you profide a .json there should be no null values'+
+			'\n * If you provide a .json there should be no null values'+
 			'\n * comments in this document show you the values that need to be changed!'+
 			'\n * '+
 			'\n * Some (backend)-developers choose to hide empty/null values, you can add them:'+

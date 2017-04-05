@@ -199,7 +199,7 @@ Hxjsondef.prototype = {
 		var str = "";
 		str += "package;";
 		if(!this.isComment) {
-			str += "\n\n" + "/**" + ("\n * Generated with " + Hxjsondef.NAME + " (version " + Hxjsondef.VERSION + ") on ") + Std.string(new Date()) + ("\n * from : " + this.get_fileName()) + "\n * " + "\n * AST = Abstract Syntax Tree" + "\n * " + "\n * Note:" + "\n * If you profide a .json there should be no null values" + "\n * comments in this document show you the values that need to be changed!" + "\n * " + "\n * Some (backend)-developers choose to hide empty/null values, you can add them:" + "\n * \t\t@:optional var _id : Int;" + "\n * " + "\n * Name(s) that you possibly need to change:" + ("" + temp) + "\n */" + "\n";
+			str += "\n\n" + "/**" + ("\n * Generated with " + Hxjsondef.NAME + " (version " + Hxjsondef.VERSION + ") on ") + Std.string(new Date()) + ("\n * from : " + this.get_fileName()) + "\n * " + "\n * AST = Abstract Syntax Tree" + "\n * " + "\n * Note:" + "\n * If you provide a .json there should be no null values" + "\n * comments in this document show you the values that need to be changed!" + "\n * " + "\n * Some (backend)-developers choose to hide empty/null values, you can add them:" + "\n * \t\t@:optional var _id : Int;" + "\n * " + "\n * Name(s) that you possibly need to change:" + ("" + temp) + "\n */" + "\n";
 		}
 		return str;
 	}
