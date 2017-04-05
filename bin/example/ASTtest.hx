@@ -1,7 +1,7 @@
 package;
 
 /**
- * Generated with HxJsonDef (version 0.0.7) on 2017-04-05 22:34:36
+ * Generated with HxJsonDef (version 0.0.7) on 2017-04-05 22:44:04
  * from : test
  * 
  * AST = Abstract Syntax Tree
