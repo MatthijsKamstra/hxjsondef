@@ -1,0 +1,5 @@
+-main Main
+-cp tools
+-cp src
+-neko run.n
+-debug

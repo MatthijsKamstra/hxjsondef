@@ -1,0 +1,13 @@
+{
+    "name": "hxjsondef",
+    "url" : "https://github.com/MatthijsKamstra/hxjsondef",
+    "license": "MIT",
+    "tags": ["js", "web", "html5", "haxe", "javascript", "macro", "html", "json"],
+    "description": "HxJsonDef helps you quickly define a typedef from some arbitrary .json",
+    "version": "0.0.7",
+    "classPath": "src/",
+    "releasenote": "init",
+    "contributors": ["MatthijsKamstra"],
+    "dependencies": {
+    }
+}

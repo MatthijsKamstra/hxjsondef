@@ -19,8 +19,12 @@ class Main {
 	function new(?args : Array<String>) : Void
 	{
 		var args : Array<String> = args;
-		if(args.length > 0 && args[0].indexOf('/') != -1){
+		if(args.length == 1 && args[0].indexOf('.') != -1){
 			filePath = args[0];
+			isFileSet = isValidJson(filePath);
+		}
+		if(args.length == 2 && args[0].indexOf('.') != -1){
+			filePath = args[1]+args[0];
 			isFileSet = isValidJson(filePath);
 		}
 
@@ -40,7 +44,7 @@ class Main {
 		hxjsondef = new Hxjsondef();
 		hxjsondef.fileName = fileName;
 
-		Sys.println('$Hxjsondef.NAME :: start converting "${fileName}.json"');
+		Sys.println('${Hxjsondef.NAME} :: start converting "${fileName}.json"');
 
 		// trace( "path: " + path );
 		// trace( "fileName: " + fileName );
@@ -53,7 +57,7 @@ class Main {
 
 		init(filePath);
 
-		Sys.println('$Hxjsondef.NAME :: done!\n');
+		Sys.println('${Hxjsondef.NAME} :: done!\n');
 
 	}
 
@@ -73,7 +77,7 @@ class Main {
 
 		var str = hxjsondef.convert('${capString(fileName)}Obj', content);
 
-		Sys.println('$Hxjsondef.NAME :: write data to "AST${fileName}.hx" ...');
+		Sys.println('${Hxjsondef.NAME} :: write data to "AST${fileName}.hx" ...');
 
 		write(fileName, str);
 	}

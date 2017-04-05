@@ -1,34 +1,29 @@
+# website
 -cp src
 -main MainJS
 -js bin/www/hxjsondef.js
 -debug
 -dce full
--lib jQueryExtern
-
-
 
 --next
 
-
-#integrate files to classpath
+# standalone neko
 -cp src
-
-#this class wil be used as entry point for your app.
+-cp tools
 -main Main
-
-#neko target
 -neko bin/hxjsondef.n
-
-#Add debug information
 -debug
-
-#dead code elimination : remove unused code
-#"-dce no" : do not remove unused code
-#"-dce std" : remove unused code in the std lib (default)
-#"-dce full" : remove all unused code
 -dce full
-
-# create a bootable neko file
 -cmd nekotools boot bin/hxjsondef.n
-# open the created file
--cmd open bin/hxjsondef
+
+--next
+
+# test standalone neko with json files
+-cmd haxe test.hxml
+
+--next
+
+# test `haxelib run hxjsondef filename.js`
+-cmd haxe run.hxml
+-cmd cd bin/example/
+-cmd haxelib run hxjsondef 'test.json'

@@ -5,8 +5,10 @@ using StringTools;
 class Hxjsondef {
 
 	public static var NAME : String = "HxJsonDef";
-	public static var VERSION : String = "0.0.6";
+	public static var VERSION : String = "0.0.7";
+
 	/**
+	 * 0.0.7 - haxelib run command
 	 * 0.0.6 - @:optional fixed @optional
 	 * 0.0.5 - fixed bug with `\n` in String
 	 * 0.0.4 - loop through all arrays, chances that it will add optionals // doesn't work
@@ -14,7 +16,6 @@ class Hxjsondef {
 	 * 0.0.2 - fixed Array with objects
 	 * 0.0.1 - initial release
 	 */
-
 
 	private var str = '';
 	private var isComment : Bool = false;
@@ -108,7 +109,7 @@ class Hxjsondef {
 
 				case TClass(Array):
 					// [mck] is it an Array<String/Int/Bool> or is it an Array<typedef>?
-					store = whatForSortArray(varName,Reflect.field(pjson,varName),tab);
+					store = whatSortArray(varName,Reflect.field(pjson,varName),tab);
 
 				case TInt:
 					store = '${tab}var ${varName} : Int;${c}';
@@ -140,7 +141,7 @@ class Hxjsondef {
 	}
 
 
-	function whatForSortArray(varName:String, value:Array<Dynamic>, tab:String = '\t'):String
+	function whatSortArray(varName:String, value:Array<Dynamic>, tab:String = '\t'):String
 	{
 		var xc = '';
 		var type : String = 'Dynamic';
