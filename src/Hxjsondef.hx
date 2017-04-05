@@ -36,11 +36,11 @@ class Hxjsondef {
 	public function new() {}
 
 	/**
-	 * convert this for js
+	 * convert this for js/neko
 	 *
-	 * @param  name    [description]
-	 * @param  content [description]
-	 * @return         String
+	 * @param  name    json filename
+	 * @param  content json content
+	 * @return         String (haxe class with typedef)
 	 */
 	public function convert(name:String, content:String):String
 	{
