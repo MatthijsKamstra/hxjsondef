@@ -6,6 +6,49 @@ HxJsonDef is command-line app/class written in [Haxe](http://www.haxe.org) that 
 
 I found a gist written in ruby that does the same (written by [Justin Donaldson](https://gist.github.com/jdonaldson/1454243)) and it inspired to write it in Haxe/Neko.
 
+
+
+
+
+
+
+
+
+### Haxelib
+
+
+You might want to update and/or correct the externs: install this repo locally
+
+```bash
+haxelib dev hxjsondef path/to/folder/src
+```
+
+Or use the developers version / cutting edge: this git repo
+
+```bash
+haxelib git jsonhxdef https://github.com/MatthijsKamstra/jsonhxdef
+```
+
+And don't forget to add it to your build file
+
+```bash
+-lib jsonhxdef
+```
+
+
+
+## Usage
+
+
+```bash
+cd path/to/folder
+haxelib run jsonhxdef 'filename.json'
+```
+
+
+
+
+
 ## How to use
 
 - Download this repo
