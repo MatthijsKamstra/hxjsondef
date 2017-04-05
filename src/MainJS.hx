@@ -1,6 +1,6 @@
 package;
 
-import jQuery.*;
+import js.jquery.JQuery;
 import js.Browser;
 import js.html.TextAreaElement;
 
