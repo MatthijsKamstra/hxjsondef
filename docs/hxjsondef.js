@@ -636,7 +636,7 @@ var Class = { __name__ : ["Class"]};
 var Enum = { };
 var __map_reserved = {}
 Hxjsondef.NAME = "HxJsonDef";
-Hxjsondef.VERSION = "0.0.7";
+Hxjsondef.VERSION = "0.0.8";
 js_Boot.__toStr = ({ }).toString;
 MainJS.main();
 })(typeof window != "undefined" ? window : typeof global != "undefined" ? global : typeof self != "undefined" ? self : this);
