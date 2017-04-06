@@ -5,9 +5,10 @@ using StringTools;
 class Hxjsondef {
 
 	public static var NAME : String = "HxJsonDef";
-	public static var VERSION : String = "0.0.7";
+	public static var VERSION : String = "0.0.8";
 
 	/**
+	 * 0.0.8 - macro
 	 * 0.0.7 - haxelib run command
 	 * 0.0.6 - @:optional fixed @optional
 	 * 0.0.5 - fixed bug with `\n` in String
