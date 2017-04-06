@@ -58,7 +58,8 @@ You choose what works best for you:
 - Initialization [macro](#macro) in your build file
 - [haxelib run](#haxerun)
 - [neko](#neko)
-- via class
+- via [class](#class)
+- [online](http://matthijskamstra.github.io/hxjsondef/)
 
 <a href="#macro"></a>
 ### Macro
@@ -88,7 +89,7 @@ haxelib run jsonhxdef 'filename.json'
 
 And next to the `filename.json ` there will be the converted `ASTfilename.hx` file.
 
-You need to send the file you want to change. I might consider creating it for folders as well. Just let me know. Create an issue or a pull request. 
+You need to send the file you want to change. I might consider creating it for folders as well. Just let me know. Create an issue or a pull request.
 
 <a href="#neko"></a>
 ### neko
@@ -104,6 +105,31 @@ neko jsonhxdef '/Volumes/path/to/foobar.json'
 And next to the `foobar.json` there will be the converted `ASTfoobar.hx` file.
 
 See two json file converted in the [example folder](bin/example)
+
+<a href="#class"></a>
+### class
+
+Add lib to `build.hxml`
+
+```bash
+-lib jsonhxdef
+```
+
+Example code
+
+```haxe
+var str = '{
+	"id": 1,
+	"name": "A green door",
+	"price": 12.50,
+	"tags": ["home", "green"]
+}';
+
+var hxjsondef = new Hxjsondef();
+hxjsondef.fileName = 'foo';
+trace(hxjsondef.convert('foobar', str));
+
+```
 
 
 
