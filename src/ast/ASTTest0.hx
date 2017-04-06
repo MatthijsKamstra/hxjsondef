@@ -1,7 +1,7 @@
 package;
 
 /**
- * Generated with HxJsonDef (version 0.0.8) on 2017-04-06 10:44:24
+ * Generated with HxJsonDef (version 0.0.8) on 2017-04-06 10:44:23
  * from : test0
  * 
  * AST = Abstract Syntax Tree
@@ -14,10 +14,15 @@ package;
  * 		@:optional var _id : Int;
  * 
  * Name(s) that you possibly need to change:
+ * 		Test0.jsonObjObj
  * 		Obj
  * 		Glossary
- * 		Test0ObjObj
  */
+
+typedef Test0.jsonObjObj =
+{
+	var glossary : Glossary;
+};
 
 typedef Obj =
 {
@@ -35,9 +40,4 @@ typedef Glossary =
 	var string : String;
 	var number : Int;
 	var stringArray : Array<String>;
-};
-
-typedef Test0ObjObj =
-{
-	var glossary : Glossary;
 };

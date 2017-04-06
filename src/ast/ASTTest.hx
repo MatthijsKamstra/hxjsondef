@@ -1,7 +1,7 @@
 package;
 
 /**
- * Generated with HxJsonDef (version 0.0.8) on 2017-04-06 10:44:24
+ * Generated with HxJsonDef (version 0.0.8) on 2017-04-06 10:44:23
  * from : test
  * 
  * AST = Abstract Syntax Tree
@@ -15,17 +15,33 @@ package;
  * 
  * Name(s) that you possibly need to change:
  * 		GlossDiv
+ * 		Test.jsonObjObj
+ * 		GlossEntry
  * 		GlossDef
  * 		GlossList
  * 		Glossary
- * 		GlossEntry
- * 		TestObjObj
  */
 
 typedef GlossDiv =
 {
 	var GlossList : GlossList;
 	var title : String;
+};
+
+typedef Test.jsonObjObj =
+{
+	var glossary : Glossary;
+};
+
+typedef GlossEntry =
+{
+	var GlossDef : GlossDef;
+	var GlossSee : String;
+	var SortAs : String;
+	var ID : String;
+	var Acronym : String;
+	var GlossTerm : String;
+	var Abbrev : String;
 };
 
 typedef GlossDef =
@@ -43,20 +59,4 @@ typedef Glossary =
 {
 	var GlossDiv : GlossDiv;
 	var title : String;
-};
-
-typedef GlossEntry =
-{
-	var GlossDef : GlossDef;
-	var GlossSee : String;
-	var SortAs : String;
-	var ID : String;
-	var Acronym : String;
-	var GlossTerm : String;
-	var Abbrev : String;
-};
-
-typedef TestObjObj =
-{
-	var glossary : Glossary;
 };

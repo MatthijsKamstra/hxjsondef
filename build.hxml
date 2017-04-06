@@ -5,6 +5,9 @@
 -debug
 -dce full
 
+--macro hxjsondef.macro.AutomaticJsonDef.build('bin/example','src/ast')
+
+
 --next
 
 # standalone neko

@@ -47,6 +47,10 @@ haxelib run jsonhxdef 'filename.json'
 
 
 
+```haxe
+--macro macro.AutomaticJsonDef.build()
+```
+
 
 
 ## How to use
