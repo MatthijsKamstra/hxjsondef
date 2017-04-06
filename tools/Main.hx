@@ -44,7 +44,7 @@ class Main {
 		hxjsondef = new Hxjsondef();
 		hxjsondef.fileName = fileName;
 
-		Sys.println('${Hxjsondef.NAME} :: start converting "${fileName}.json"');
+		Sys.println('${Hxjsondef.NAME} (${Hxjsondef.VERSION}) :: convert "${fileName}.json"');
 
 		// trace( "path: " + path );
 		// trace( "fileName: " + fileName );
@@ -57,7 +57,7 @@ class Main {
 
 		init(filePath);
 
-		Sys.println('${Hxjsondef.NAME} :: done!\n');
+		Sys.println('${Hxjsondef.NAME} (${Hxjsondef.VERSION}) :: done "${fileName}.json"\n');
 
 	}
 
@@ -77,7 +77,7 @@ class Main {
 
 		var str = hxjsondef.convert('${capString(fileName)}Obj', content);
 
-		Sys.println('${Hxjsondef.NAME} :: write data to "AST${fileName}.hx" ...');
+		Sys.println('${Hxjsondef.NAME} (${Hxjsondef.VERSION}) :: write data to "AST${fileName}.hx" ...');
 
 		write(fileName, str);
 	}
