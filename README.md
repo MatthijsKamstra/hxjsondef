@@ -21,7 +21,7 @@ JSON values can be:
 - An object (in curly braces `{...}`)
 - null
 
-[http://www.w3schools.com/json/json_syntax.asp](source)
+[https://www.w3schools.com/js/js_json_datatypes.asp](https://www.w3schools.com/js/js_json_datatypes.asp)
 
 
 
@@ -40,13 +40,13 @@ haxelib dev hxjsondef path/to/folder/src
 Or use the developers version / cutting edge: this git repo
 
 ```bash
-haxelib git jsonhxdef https://github.com/MatthijsKamstra/jsonhxdef
+haxelib git hxjsondef https://github.com/MatthijsKamstra/hxjsondef
 ```
 
 And don't forget to add it to your build file
 
 ```bash
--lib jsonhxdef
+-lib hxjsondef
 ```
 
 
@@ -84,7 +84,7 @@ Install the lib and use your terminal to generate a `.hx` file based upon a `.js
 
 ```bash
 cd path/to/folder
-haxelib run jsonhxdef 'filename.json'
+haxelib run hxjsondef filename.json
 ```
 
 And next to the `filename.json ` there will be the converted `ASTfilename.hx` file.
@@ -99,7 +99,7 @@ You need to send the file you want to change. I might consider creating it for f
 - `cd ` to the correct folder (where hxjsondef is located: `/hxjsondef/bin/`)
 
 ```
-neko jsonhxdef '/Volumes/path/to/foobar.json'
+neko hxjsondef /Volumes/path/to/foobar.json
 ```
 
 And next to the `foobar.json` there will be the converted `ASTfoobar.hx` file.
@@ -112,7 +112,7 @@ See two json file converted in the [example folder](bin/example)
 Add lib to `build.hxml`
 
 ```bash
--lib jsonhxdef
+-lib hxjsondef
 ```
 
 Example code
@@ -137,5 +137,5 @@ trace(hxjsondef.convert('foobar', str));
 
 - <http://haxe.org/manual/type-system-typedef.html>
 - <http://haxe.org/manual/types-structure-json.html>
-- <http://www.w3schools.com/json/>
+- <https://www.w3schools.com/js/js_json_intro.asp>
 - <https://gist.github.com/jdonaldson/1454243>
